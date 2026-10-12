@@ -1975,9 +1975,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1298717707296187361, guid: 374e09e8dfe2cc646a0c460d77ea8e56, type: 3}
+      propertyPath: mutationChance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298717707296187361, guid: 374e09e8dfe2cc646a0c460d77ea8e56, type: 3}
       propertyPath: offspringPrefab
       value: 
       objectReference: {fileID: 3315259495366366374, guid: b1eb744f31dca8b42ae17b89859cd33d, type: 3}
+    - target: {fileID: 1298717707296187361, guid: 374e09e8dfe2cc646a0c460d77ea8e56, type: 3}
+      propertyPath: breedingCooldown
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298717707296187361, guid: 374e09e8dfe2cc646a0c460d77ea8e56, type: 3}
+      propertyPath: traitMutationChance
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1991,6 +2003,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1895535997}
     m_Modifications:
+    - target: {fileID: -5957907808638878910, guid: b881671a2a435a042a696a703e330198, type: 3}
+      propertyPath: geneColour.g
+      value: 0.026396055
+      objectReference: {fileID: 0}
+    - target: {fileID: -5957907808638878910, guid: b881671a2a435a042a696a703e330198, type: 3}
+      propertyPath: geneColour.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7321145722671462069, guid: b881671a2a435a042a696a703e330198, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.4400005
@@ -2251,6 +2271,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7139262651069034388}
     m_Modifications:
+    - target: {fileID: -3112044537304136525, guid: 1a2c7cf019ce5f646bfb9c517bb3a3db, type: 3}
+      propertyPath: geneColour.b
+      value: 0.8962264
+      objectReference: {fileID: 0}
+    - target: {fileID: -3112044537304136525, guid: 1a2c7cf019ce5f646bfb9c517bb3a3db, type: 3}
+      propertyPath: geneColour.g
+      value: 0.2554808
+      objectReference: {fileID: 0}
+    - target: {fileID: -3112044537304136525, guid: 1a2c7cf019ce5f646bfb9c517bb3a3db, type: 3}
+      propertyPath: geneColour.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1003086518409698029, guid: 1a2c7cf019ce5f646bfb9c517bb3a3db, type: 3}
       propertyPath: m_Name
       value: Creature_Locky

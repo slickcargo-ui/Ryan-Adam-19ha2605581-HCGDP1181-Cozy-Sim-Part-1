@@ -10,4 +10,5 @@ public class CreatureGenetics : MonoBehaviour
     {
        GetComponent<Renderer>().material.color = geneColour;
     }
+
 }
