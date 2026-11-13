@@ -66,7 +66,7 @@ public class UIManager : MonoBehaviour
             {
                 displayPanel.SetActive(true);
                 displayName.text = currentlySelected.GetComponent<Room>().GetRoomName();
-                string formattedInfo = "";
+                // Removed an unused formattedInfo that was unused here
                 displayText.text = currentlySelected.GetComponent<Room>().ToString();
             }
             else

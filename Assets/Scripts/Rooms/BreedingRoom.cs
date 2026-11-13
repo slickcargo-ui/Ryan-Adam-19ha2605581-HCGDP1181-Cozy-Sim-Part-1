@@ -33,7 +33,7 @@ public class BreedingRoom : Room
             hasBredThisPair = true;
         }
 
-        else if (roomCount != 2)
+        else if (roomCount < 2)
         {
             hasBredThisPair = false;
         }
@@ -47,7 +47,7 @@ public class BreedingRoom : Room
         Creature parent1 = children[0].GetComponent<Creature>();
         Creature parent2 = children[1].GetComponent<Creature>();
 
-        Creature child = Instantiate(offspringPrefab, movePoint.position, Quaternion.identity).GetComponent<Creature>();
+        Creature child = Instantiate(offspringPrefab, movePoint.position, Quaternion.identity, transform).GetComponent<Creature>();
 
         child.GetComponent<CreatureGenetics>().InheritFrom(
             parent1.GetComponent<CreatureGenetics>(),

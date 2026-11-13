@@ -10,18 +10,18 @@ public abstract class Room : MonoBehaviour
     [SerializeField] protected Transform movePoint;
     [SerializeField] protected List<Transform> children = new List<Transform>();
     [SerializeField] protected int creatureCap;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()
     {
-        
+
         foreach (Transform child in transform)
         {
             if (child.gameObject.GetComponent<Creature>())
             {
                 children.Add(child);
             }
-            
+
         }
     }
 
@@ -37,17 +37,17 @@ public abstract class Room : MonoBehaviour
         currentCreature.GetComponent<NavMeshAgent>().ResetPath();
         currentCreature.GetComponent<NavMeshAgent>().Warp(movePoint.position);
     }
-    
+
     public virtual List<Transform> GetChildrenInRoom()
     {
-        List<Transform> creatures  = new List<Transform>();
+        List<Transform> creatures = new List<Transform>();
         foreach (Transform child in transform)
         {
             if (child.gameObject.GetComponent<Creature>())
             {
                 creatures.Add(child);
             }
-            
+
         }
         return creatures;
     }
@@ -56,8 +56,8 @@ public abstract class Room : MonoBehaviour
     {
         return roomName;
     }
-
-    public virtual string ToString()
+    // added a override here because this was causing a warning in the console
+    public override string ToString()
     {
         return "This room does nothing";
     }
@@ -66,5 +66,5 @@ public abstract class Room : MonoBehaviour
     {
         return children.Count;
     }
-    
+
 }
