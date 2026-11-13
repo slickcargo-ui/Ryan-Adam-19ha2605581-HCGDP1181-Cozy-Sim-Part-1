@@ -2,28 +2,40 @@ using UnityEngine;
 
 public static class TraitInheritance
 {
-    public static Color CombineColours(Color parent1Colour, Color parent2Colour, float mutationChance)
+    private const float ColourMutationStrength = 0.1f;  // max nudge per colour channel
+    private const float ValueMutationPercent = 0.1f;    // max +/-10% nudge for stats and scale
+
+    public static Color CombineColours(Color parent1, Color parent2, float mutationChance)
     {
-      Color childColor = Color.Lerp(parent1Colour, parent2Colour, 0.5f);// Average the two parent colors. also i changed the float here from 0.1 to 0.5 to make the child color more balanced between the two parents
-        // Apply mutation
+        Color child = Color.Lerp(parent1, parent2, 0.5f);
+
         if (Random.value < mutationChance)
         {
-           childColor = new Color(Random.value, Random.value, Random.value);
+            child.r = Mathf.Clamp01(child.r + Random.Range(-ColourMutationStrength, ColourMutationStrength));
+            child.g = Mathf.Clamp01(child.g + Random.Range(-ColourMutationStrength, ColourMutationStrength));
+            child.b = Mathf.Clamp01(child.b + Random.Range(-ColourMutationStrength, ColourMutationStrength));
         }
-        return childColor;
+
+        child.a = 1f;
+        return child;
     }
 
-    public static Trait CombineTraits(Trait parent1Trait, Trait parent2Trait, float traitMutationChance)
+    // Random blend between the two parents, then a small mutation nudge.
+    public static float CombineValues(float parent1, float parent2, float mutationChance, float min)
     {
-        string childName = parent1Trait.Name;
-        // Average the max values of the two parent traits to determine the child's trait value
-        float childValue = (parent1Trait.MaxValue + parent2Trait.MaxValue) / 2f;
-        // Apply mutation
-        if (Random.value < traitMutationChance)
+        float value = Mathf.Lerp(parent1, parent2, Random.value);
+
+        if (Random.value < mutationChance)
         {
-            childValue += Random.Range(-10f, 10f); // Randomly adjust the value
-            childValue = Mathf.Clamp(childValue, 1f, Mathf.Max(parent1Trait.MaxValue + parent2Trait.MaxValue)); // Ensure the value stays within bounds
+            value *= 1f + Random.Range(-ValueMutationPercent, ValueMutationPercent);
         }
-        return new Trait(childName, childValue, "Child of " + parent1Trait.Name + " and " + parent2Trait.Name);
+
+        return Mathf.Max(value, min);
+    }
+
+    public static Trait CombineTraits(Trait parent1, Trait parent2, float mutationChance)
+    {
+        float value = CombineValues(parent1.MaxValue, parent2.MaxValue, mutationChance, 1f);
+        return new Trait(parent1.Name, value, "Child of " + parent1.Name + " and " + parent2.Name);
     }
 }

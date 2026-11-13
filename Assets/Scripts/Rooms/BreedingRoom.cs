@@ -32,7 +32,7 @@ public class BreedingRoom : Room
             Breed();
             hasBredThisPair = true;
         }
-        
+
         else if (roomCount != 2)
         {
             hasBredThisPair = false;
@@ -43,46 +43,49 @@ public class BreedingRoom : Room
     private void Breed()
     {
         BreedingCooldownTimer = breedingCooldown;
-        
+
         Creature parent1 = children[0].GetComponent<Creature>();
         Creature parent2 = children[1].GetComponent<Creature>();
 
         Creature child = Instantiate(offspringPrefab, movePoint.position, Quaternion.identity).GetComponent<Creature>();
 
-        Color childColour = TraitInheritance.CombineColours(parent1.GetComponent<CreatureGenetics>().GeneColour, parent2.GetComponent<CreatureGenetics>().GeneColour, mutationChance);
-        CreatureGenetics childGen = child.GetComponent<CreatureGenetics>();
-        childGen.GeneColour = childColour;
-        childGen.ApplyColour();
+        child.GetComponent<CreatureGenetics>().InheritFrom(
+            parent1.GetComponent<CreatureGenetics>(),
+            parent2.GetComponent<CreatureGenetics>(),
+            mutationChance);
 
-        // Miner problem: The child can not inherit a trait unless both parents have that trait.
-        // So if one parent has a trait and the other does not, the child will not inherit that trait.
-        // This is a problem because it means that the child can not inherit a trait that is only present in one parent.
-
-        // Set The Speed Value and MaxValue of the child to the combined trait values of the parents
-        InheritStat(parent1, parent2, child,"Speed");
-        // Set The Health Value and MaxValue of the child to the combined trait values of the parents
-       InheritStat(parent1, parent2, child,"Health");
-        // Set The Hunger Value and MaxValue of the child to the combined trait values of the parents
-        InheritStat(parent1, parent2, child,"Hunger");
-        // Set The Charge Value and MaxValue of the child to the combined trait values of the parents
-        InheritStat(parent1, parent2, child,"Charge");
-
-        Debug.Log("Breeding " + parent1.GetName() + " and " + parent2.GetName());
+        foreach (Stat stat in child.GetStats())
+        {
+            InheritStat(parent1, parent2, child, stat.GetTrait().Name);
+        }
     }
-    // Inherit the stat from the parents to the child
+
     private void InheritStat(Creature parent1, Creature parent2, Creature child, string statName)
     {
-        // Check if both parents and the child have the stat
-        if (parent1.GetStat(statName) != null && parent2.GetStat(statName) != null && child.GetStat(statName) != null)
-        {
-            Trait childTrait = TraitInheritance.CombineTraits(parent1.GetStat(statName).GetTrait(), parent2.GetStat(statName).GetTrait(), traitMutationChance);
-            child.GetStat(statName).GetTrait().Value = childTrait.Value;
-            child.GetStat(statName).GetTrait().MaxValue = childTrait.MaxValue;
-        }
+        Stat p1 = parent1.GetStat(statName);
+        Stat p2 = parent2.GetStat(statName);
+        Stat c = child.GetStat(statName);
 
+        if (c == null) return;
+
+        Trait childTrait;
+
+        if (p1 != null && p2 != null)
+        {
+            childTrait = TraitInheritance.CombineTraits(p1.GetTrait(), p2.GetTrait(), traitMutationChance);
+        }
+        else if (p1 != null || p2 != null)
+        {
+            // Only one parent has this stat: inherit from that parent, still allowing mutation
+            Trait only = (p1 != null ? p1 : p2).GetTrait();
+            childTrait = TraitInheritance.CombineTraits(only, only, traitMutationChance);
+        }
         else
         {
-            Debug.LogWarning("One of the parents or the child does not have the stat: " + statName);
+            return; // neither parent has it, so the child keeps its prefab default
         }
+
+        c.GetTrait().MaxValue = childTrait.MaxValue;
+        c.GetTrait().Value = childTrait.Value;
     }
 }

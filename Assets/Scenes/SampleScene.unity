@@ -1976,7 +1976,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1298717707296187361, guid: 374e09e8dfe2cc646a0c460d77ea8e56, type: 3}
       propertyPath: mutationChance
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1298717707296187361, guid: 374e09e8dfe2cc646a0c460d77ea8e56, type: 3}
       propertyPath: offspringPrefab
@@ -1984,11 +1984,11 @@ PrefabInstance:
       objectReference: {fileID: 3315259495366366374, guid: b1eb744f31dca8b42ae17b89859cd33d, type: 3}
     - target: {fileID: 1298717707296187361, guid: 374e09e8dfe2cc646a0c460d77ea8e56, type: 3}
       propertyPath: breedingCooldown
-      value: 10
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1298717707296187361, guid: 374e09e8dfe2cc646a0c460d77ea8e56, type: 3}
       propertyPath: traitMutationChance
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

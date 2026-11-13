@@ -13,7 +13,14 @@ public class Creature : MonoBehaviour
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = GetStat("Speed").GetTrait().Value;
+        if (agent != null && GetStat("Speed") != null)
+        {
+            agent.speed = GetStat("Speed").GetTrait().Value;
+        }
+        else 
+        { 
+            Debug.LogWarning("NavMeshAgent component is missing on " + creatureName);
+        }
     }
 
     void LateUpdate()
@@ -30,7 +37,7 @@ public class Creature : MonoBehaviour
                 if (stat.GetTrait().Value >= 0)
                 {
                     tick.Tick();
-                    
+
                 }
             }
         }
