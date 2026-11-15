@@ -1976,7 +1976,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1298717707296187361, guid: 374e09e8dfe2cc646a0c460d77ea8e56, type: 3}
       propertyPath: mutationChance
-      value: 1
+      value: 0.214
       objectReference: {fileID: 0}
     - target: {fileID: 1298717707296187361, guid: 374e09e8dfe2cc646a0c460d77ea8e56, type: 3}
       propertyPath: offspringPrefab
@@ -1988,7 +1988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1298717707296187361, guid: 374e09e8dfe2cc646a0c460d77ea8e56, type: 3}
       propertyPath: traitMutationChance
-      value: 1
+      value: 0.221
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

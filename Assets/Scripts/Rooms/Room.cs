@@ -14,15 +14,7 @@ public abstract class Room : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()
     {
-
-        foreach (Transform child in transform)
-        {
-            if (child.gameObject.GetComponent<Creature>())
-            {
-                children.Add(child);
-            }
-
-        }
+        children = GetChildrenInRoom();
     }
 
     public virtual void LateUpdate()

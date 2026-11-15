@@ -18,6 +18,7 @@ public class BreedingRoom : Room
     // which is not what we want. We want it to only breed once per pair of creatures.
     private bool hasBredThisPair;
     private float BreedingCooldownTimer = 0f;
+    private const int RequiredRoomCount = 2;
 
     // Update is called once per frame
     void Update()
@@ -27,13 +28,13 @@ public class BreedingRoom : Room
 
         int roomCount = GetRoomCount();
 
-        if (roomCount == 2 && BreedingCooldownTimer <= 0 && !hasBredThisPair)
+        if (roomCount == RequiredRoomCount && BreedingCooldownTimer <= 0 && !hasBredThisPair)
         {
-            Breed();
             hasBredThisPair = true;
+            Breed();
         }
 
-        else if (roomCount < 2)
+        else if (roomCount < RequiredRoomCount)
         {
             hasBredThisPair = false;
         }
@@ -49,15 +50,21 @@ public class BreedingRoom : Room
 
         Creature child = Instantiate(offspringPrefab, movePoint.position, Quaternion.identity, transform).GetComponent<Creature>();
 
-        child.GetComponent<CreatureGenetics>().InheritFrom(
+        CreatureGenetics childGenetics = child.GetComponent<CreatureGenetics>();
+        childGenetics.InheritFrom(
             parent1.GetComponent<CreatureGenetics>(),
             parent2.GetComponent<CreatureGenetics>(),
             mutationChance);
+
+        child.name = "Offspring Gen " + childGenetics.Generation;
 
         foreach (Stat stat in child.GetStats())
         {
             InheritStat(parent1, parent2, child, stat.GetTrait().Name);
         }
+
+        Debug.Log("Bred " + parent1.GetName() + " + " + parent2.GetName() +
+          " (generation " + childGenetics.Generation + ", mutations: " + childGenetics.Mutations + ")");
     }
 
     private void InheritStat(Creature parent1, Creature parent2, Creature child, string statName)

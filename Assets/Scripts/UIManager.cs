@@ -60,6 +60,11 @@ public class UIManager : MonoBehaviour
                     formattedInfo += stat.ToString();
                     formattedInfo += "\n";
                 }
+                CreatureGenetics genetics = currentlySelected.GetComponent<CreatureGenetics>();
+                if (genetics != null)
+                {
+                    formattedInfo += "\n" + genetics.GetInfo();
+                }
                 displayText.text = formattedInfo;
             }
             else if (currentlySelected.GetComponent<Room>())
